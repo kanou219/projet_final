@@ -1,0 +1,59 @@
+ <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{{ path('home') }}">Eshop Manga</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if app.user %}
+
+         {% if app.user.roles[0] is same as "ROLE_ADMIN" %}
+         
+        <li class="nav-item">
+          <a class="nav-link" href=" {{path ('admin_home')}} ">Administration</a>
+        </li>
+
+        {% endif %}
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+        </li>
+
+
+
+        {% else %}
+            
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_register') }}">Créer un compte</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+        </li>
+
+        {% endif %}
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Catégorie
+          </a>
+
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          
+            {% for c in categorieRepository.findAll() %}
+
+            <li><a class="dropdown-item" href="{{ path('categorie_show',{ 'id' : c.id })}}">{{ c.nom }}</a></li>
+            {% endfor %}
+            </ul>
+            </li>
+         
+            <li class="nav-item">
+            <a class="nav-link" href=><i class="fas fa-shopping-cart"></i> Mon panier</a>
+            </li>
+          <li class="nav-item">
+            <a class="nav-link" href=><i class="fas fa-user"></i> Mon profil</a>
+        
+      </ul>
+    </div>
+  </div>
+</nav>

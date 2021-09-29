@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Categorie index{% endblock %}
+
+{% block body %}
+    <h1>{{ categorie.nom | upper }}</h1>
+
+    <div class="row">
+        {% for p in produits %}
+
+            <div class="col-12 col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <img class="img-fluid w-100" style="max-height:200px;object-fit:cover;" src="{{ asset(p.image) }}"/>
+
+                    </div>
+                    <div class="card-body">
+                        <p>{{ p.nom }}</p>
+                        <p>{{ p.prix | amount }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a class="btn btn-primary" href=>Ajouter au panier</a>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+    </div>
+
+{% endblock %}

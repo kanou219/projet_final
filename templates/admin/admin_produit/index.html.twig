@@ -1,0 +1,65 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block body %}
+    <h1>Produit index</h1>
+
+    <div class="py-3">
+
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+        <button type="submit" class="btn btn-primary">Rechercher</button>
+
+        {{ form_end(form) }}
+
+    </div>
+
+    {% if produits | length > 0 %}
+
+    {{ knp_pagination_render(produits) }}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Catégorie</th>
+                <th>Image</th>
+                <th>Prix</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.id }}</td>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.categorie.nom | upper }}</td>
+                <td>     <img src={{ asset(produit.image) }} style="height:100px;object-fit:contain;"/></td>
+                <td>{{ produit.prix | amount }}</td>
+                <td>
+                    <a href="{{ path('admin_produit_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('admin_produit_edit', {'id': produit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {{ knp_pagination_render(produits) }}
+
+    {% else %}
+
+    <p>Il n'y a aucun produit.</p>
+
+    {% endif %}
+
+    <a href="{{ path('admin_produit_new') }}">Create new</a>
+{% endblock %}

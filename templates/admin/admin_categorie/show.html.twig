@@ -1,0 +1,32 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Categorie{% endblock %}
+
+{% block body %}
+    <h1>Categorie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ categorie.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ categorie.nom }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>
+                                <img src={{ asset(categorie.image) }} style="height:100px;object-fit:contain;"/>
+</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_categorie_index') }}">back to list</a>
+
+    <a href="{{ path('admin_categorie_edit', {'id': categorie.id}) }}">edit</a>
+
+    {{ include('admin/admin_categorie/_delete_form.html.twig') }}
+{% endblock %}
